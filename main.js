@@ -43,6 +43,7 @@ const inputFecha=document.querySelector('#fecha')
 const inputCed=document.querySelector('#cedula')
 const boton=document.querySelector('.boton')
 const buscar=document.querySelector('.bi')
+const inputBuscar = document.querySelector('.buscar')
 let tabla=document.querySelector('.table_info')
 let person=''
 let arreglo=[]
@@ -90,17 +91,17 @@ boton.addEventListener('click',()=>{
     let nacido=inputFecha.value.split('-')
     mes=nacido[1]
     dia=nacido[2]
-    if(inputNomb.value=='' || inputApelli.value==0 || inputFecha.value=='' || inputCed==''){
-        alert('Falta escribir un dato')
+    if(inputNomb.value=='' || inputApelli.value==0 || inputFecha.value=='' || inputCed.value==''){
+        alert('Falta escribir algún dato')
     }
     else{
         const person= new Persona(inputNomb.value,inputApelli.value,inputFecha.value,inputCed.value,parseInt(año_hoy-nacido[0]))
         arreglo.push(person)
         console.log(arreglo)
-        console.log(nacido)
-        console.log(person.nombreCompleto())
-        console.log(person.cumpleaños())
-        cedulaBusca.push(person.inputCed)
+        // console.log(nacido)
+        // console.log(person.nombreCompleto())
+        // console.log(person.cumpleaños())
+        cedulaBusca.push(inputCed.value)
         tabla.innerHTML+=`
         <tr>
             <th>${person.nombreCompleto()}</th>
@@ -112,10 +113,22 @@ boton.addEventListener('click',()=>{
 
 let buscarCed=document.querySelector('.buscar')
 buscar.addEventListener('click',()=>{
-    if(cedulaBusca.find(cedula=>cedula==buscarCed.value)){
-        console.log('Sirve')
+    if(cedulaBusca.length>0){
+        if(cedulaBusca.find(cedula=>cedula==buscarCed.value)){
+            indice=cedulaBusca.findIndex(cedula=>cedula==buscarCed.value)
+            console.log(indice)
+            localStorage.setItem('MiArreglo', JSON.stringify(arreglo))
+            localStorage.setItem('MiIndice', JSON.stringify(indice))
+            // localStorage.setItem('Cumple?' , JSON.stringify(person.cumpleaños()))
+
+        }else{
+        alert('No encontré')
+        }
+
     }else{
-        console.log('No encontré')
+        alert('Debes ingresar aunque sea una persona primero')
+        inputBuscar.value=''
+        
     }
-    
+    // console.log(arreglo[1].nombre);
 })
