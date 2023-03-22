@@ -119,6 +119,7 @@ buscar.addEventListener('click',()=>{
             console.log(indice)
             localStorage.setItem('MiArreglo', JSON.stringify(arreglo))
             localStorage.setItem('MiIndice', JSON.stringify(indice))
+            location.href='./index2.html'
             // localStorage.setItem('Cumple?' , JSON.stringify(person.cumpleaños()))
 
         }else{
